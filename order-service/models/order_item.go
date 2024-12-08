@@ -1,8 +1,8 @@
 package models
 
 type OrderItem struct {
-    ID    int    `json:"id" gorm:"primaryKey;autoIncrement"`
-    Name  string `json:"name"`
-    Age   int    `json:"age"`
-    Grade string `json:"grade"`
+	ID        int `json:"order_item_id" gorm:"primaryKey;autoIncrement"`
+	Quantity  int `json:"quantity"`
+	ProductID int `json:"product_id"`
+	Order     Order
 }
