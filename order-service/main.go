@@ -15,6 +15,7 @@ func main() {
 
     // Auto migrate the Student model
     config.DB.AutoMigrate(&models.Order{})
+    config.DB.AutoMigrate(&models.OrderItem{})
 
     // Set up Gin router
     router := gin.Default()

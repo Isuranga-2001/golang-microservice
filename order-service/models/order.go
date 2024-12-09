@@ -5,5 +5,5 @@ type Order struct {
 	UserID        int    `json:"user_id"`
 	PaymentStatus string `json:"payment_status"`
 	PaymentMethod string `json:"payment_method"`
-	OrderItems    []OrderItem
+	OrderItems    []OrderItem `gorm:"foreignKey:OrderID"` // Define foreign key
 }
