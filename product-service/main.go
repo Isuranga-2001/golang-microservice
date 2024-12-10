@@ -20,11 +20,11 @@ func main() {
     // Set up Gin router
     router := gin.Default()
  
-    router.POST("/orders", controllers.CreateProduct)
-    router.GET("/orders", controllers.GetProducts)
-    router.GET("/orders/:id", controllers.GetProduct)
-    router.PUT("/orders/:id", controllers.UpdateProduct)
-    router.DELETE("/orders/:id", controllers.DeleteProduct)
+    router.POST("/products", controllers.CreateProduct)
+    router.GET("/products", controllers.GetProducts)
+    router.GET("/products/:id", controllers.GetProduct)
+    router.PUT("/products/:id", controllers.UpdateProduct)
+    router.DELETE("/products/:id", controllers.DeleteProduct)
 
     log.Println("Server running on port 8080")
     router.Run(":8080")
