@@ -26,6 +26,6 @@ func main() {
     router.PUT("/orders/:id", controllers.UpdateOrder)
     router.DELETE("/orders/:id", controllers.DeleteOrder)
 
-    log.Println("Server running on port 8080")
-    router.Run(":8080")
+    log.Println("Server running on port 8082")
+    router.Run(":8082")
 }
