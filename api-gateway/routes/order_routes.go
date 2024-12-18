@@ -1,22 +1,29 @@
 package routes
 
 import (
+	"log"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
 	"os"
+
+	"github.com/joho/godotenv"
 )
 
 func RegisterOrderRoutes(router *http.ServeMux) {
-	orderServiceURL, _ := url.Parse(os.Getenv("ORDER_SERVICE_URL"))
+	err := godotenv.Load()
+	if (err != nil) {
+		log.Fatal("Error loading .env file")
+	}
 
-	router.HandleFunc("/orders", func(w http.ResponseWriter, r *http.Request) {
-		proxy := httputil.NewSingleHostReverseProxy(orderServiceURL)
-		proxy.ServeHTTP(w, r)
-	})
+	orderServiceURL, err := url.Parse(os.Getenv("ORDER_SERVICE_URL"))
+	if err != nil || orderServiceURL.Scheme == "" || orderServiceURL.Host == "" {
+		log.Fatalf("Invalid ORDER_SERVICE_URL: %v", err)
+	}
 
-	router.HandleFunc("/orders/", func(w http.ResponseWriter, r *http.Request) {
+	router.HandleFunc("/api/orders", func(w http.ResponseWriter, r *http.Request) {
 		proxy := httputil.NewSingleHostReverseProxy(orderServiceURL)
+		r.URL.Path = "/orders"
 		proxy.ServeHTTP(w, r)
 	})
 }
