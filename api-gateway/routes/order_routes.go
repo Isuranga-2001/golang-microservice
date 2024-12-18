@@ -22,6 +22,14 @@ func RegisterOrderRoutes(router *http.ServeMux) {
 	}
 
 	router.HandleFunc("/api/orders", func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("Proxying to Order Service: %v", orderServiceURL)
+		proxy := httputil.NewSingleHostReverseProxy(orderServiceURL)
+		r.URL.Path = "/orders"
+		proxy.ServeHTTP(w, r)
+	})
+
+	router.HandleFunc("/api/orders/", func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("Proxying to Order Service: %v", orderServiceURL)
 		proxy := httputil.NewSingleHostReverseProxy(orderServiceURL)
 		r.URL.Path = "/orders"
 		proxy.ServeHTTP(w, r)
